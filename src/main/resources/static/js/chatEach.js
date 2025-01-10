@@ -6,7 +6,7 @@ function connect() {
     roomId = $('#roomId').val();
     const serverIp = $('#serverIp').val();
     const serverPort = $('#serverPort').val();
-    socket = new SockJS(`http://${serverPort}:${serverIp}/ws`);
+    socket = new SockJS(`http://${serverIp}:${serverPort}/ws`);
     stompClient = Stomp.over(socket);
     stompClient.connect({}, frame => {
         // console.log('Connected:', frame);
@@ -47,7 +47,7 @@ async function fetchChatItems() {
                 const chatItemsByDate = await response.json();
                 updateChatContainer(chatItemsByDate);
             }, 100);
-        } 
+        }
     } catch (error) {
         console.error("Failed to fetch messages:", error);
     }
@@ -165,7 +165,7 @@ function populateUserList(users) {
                 <img src="${user.profileUrl}" alt="${user.uname}" width="30" class="rounded-circle me-2">
                 ${user.uname}
             </div>
-            <input type="checkbox" class="form-check-input" data-id="${user.uid}" 
+            <input type="checkbox" class="form-check-input" data-id="${user.uid}"
                 ${user.member ? 'checked' : ''} ${user.member ? 'disabled' : ''}>
         `;
         userList.appendChild(listItem);
